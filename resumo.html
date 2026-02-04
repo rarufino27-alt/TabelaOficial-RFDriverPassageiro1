@@ -263,15 +263,15 @@ input::placeholder{color:#8a96a6}
     <select id="tipoViagem">
       <option value="ida">Ida</option>
       <option value="bate_volta">Bate e volta</option>
-      <option value="ida_volta">Ida e volta (até 1h)</option>
-      <option value="ida_volta_espera">Ida e volta (a partir de 1h)</option>
+      <option value="ida_volta">Ida e volta (Até 30min)</option>
+      <option value="ida_volta_espera">Ida e volta com espera</option>
     </select>
   </div>
 
   <div class="block">
-    <div class="extra"><span>🛣️Desvio de rota simples</span><input type="checkbox" id="desvioSimples"></div>
-    <div class="extra"><span>🏖️Volta da praia</span><input type="checkbox" id="voltaPraia"></div>
-    <div class="extra"><span>🚌Veículo 6 lugares / excesso de passageiros</span><input type="checkbox" id="veiculo6"></div>
+    <div class="extra"><span>🛣️Desvio rápido na rota</span><input type="checkbox" id="desvioSimples"></div>
+    <div class="extra"><span>🏖️Volta das praias</span><input type="checkbox" id="voltaPraia"></div>
+    <div class="extra"><span>🚌Veículo 6 lugares</span><input type="checkbox" id="veiculo6"></div>
     <div class="extra"><span>🛒Taxa de feira</span><input type="checkbox" id="taxaFeira"></div>
     <div class="extra"><span>🌙Adicional noturno</span><input type="checkbox" id="taxaNoturna"></div>
   </div>
@@ -309,18 +309,18 @@ input::placeholder{color:#8a96a6}
   </div>
 
 <div class="assinatura">
-  <strong>Grupo RF Driver</strong>
+  <strong>RF Driver</strong>
   <div class="cnpj">CNPJ: 58.615.336/0001-49</div>
 
   <div class="linha-envio">
-    <span>DRIVER</span><br>
-    <strong>Motorista credenciado</strong>
+    <span>Grupo de Viagens</span><br>
+    <strong>RF Driver</strong>
   </div>
 
   <div class="slogan">Mobilidade com excelência</div>
 </div>
 
-  <button class="btn-primary" onclick="enviarWhats()">Solicitar corrida no WhatsApp</button>
+  <button class="btn-primary" onclick="enviarWhats()">Solicitar corrida no GRUPO</button>
   <button class="btn-secondary" onclick="App.go('destino.html')">⬅ Voltar</button>
 
 </div>
@@ -493,7 +493,7 @@ calcular();
 
 function enviarWhats(){
   const msg =
-`🚖 *RF Driver – Recibo de viagem*
+`🚖 *Solicitação de Viagem*
 
 📌 *Origem*: ${origem}
 🏁 *Destino*: ${destino}
@@ -506,8 +506,6 @@ ${detalhesWhats.join("\n")}
 —
 *Grupo RF Driver*
 CNPJ: 58.615.336/0001-49
-Enviado por:
-*Motorista credenciado*
 
 _Mobilidade com excelência_`;
 
@@ -517,3 +515,4 @@ _Mobilidade com excelência_`;
 
 </body>
 </html>
+
