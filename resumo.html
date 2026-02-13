@@ -181,6 +181,24 @@ input::placeholder{color:#8a96a6}
   color:#ffffff;
 }
 
+   .block-agendado{
+  background:linear-gradient(
+    180deg,
+    var(--card),
+    #0b2238
+  );
+  color:#ffffff;
+}
+
+.block-agendado label{
+  color:#ffffff;
+}
+
+.block-agendado input{
+  background:#ffffff;
+  color:#0b1b2b;
+}
+
 /* BOTÕES */
 .btn-primary{
   padding:18px;
@@ -303,7 +321,7 @@ input::placeholder{color:#8a96a6}
     <input type="number" id="minutosEspera" placeholder="Ex: 10">
   </div>
 
-<div class="block">
+<div class="block block-agendado">
   <div class="extra">
     <span>📅 Viagem agendada</span>
     <input type="checkbox" id="viagemAgendada">
@@ -613,6 +631,7 @@ _ALGUM MOTORISTA DISPONÍVEL?_`;
 
 </body>
 </html>
+
 
 
 
