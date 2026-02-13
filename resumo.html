@@ -522,7 +522,14 @@ _${observacao}_
 }
 
   const msg =
-`*_Tem Algum 🚖 disponivel?_*
+`*_📝Informações Gerais_*
+
+_${detalhesWhats.join("\n")}_
+
+_💰 *Total*: R$ ${App.get("total").toFixed(2)}_
+${blocoObservacao}
+__________________________________
+*_Tem Algum 🚖 disponivel?_*
 
  *_Origem ou Destino_*
 _👉${origem}_
@@ -531,13 +538,6 @@ _👉${origem}_
 _👉${destino}_
 
 _________________________________
-*_📝Informações Gerais_*
-
-_${detalhesWhats.join("\n")}_
-
-_💰 *Total*: R$ ${App.get("total").toFixed(2)}_
-${blocoObservacao}
-__________________________________
 _GRUPO RF Driver_
 _CNPJ: 58.615.336/0001-49_
 _Mobilidade com excelência_`;
@@ -548,6 +548,7 @@ _Mobilidade com excelência_`;
 
 </body>
 </html>
+
 
 
 
