@@ -181,7 +181,7 @@ input::placeholder{color:#8a96a6}
   color:#ffffff;
 }
 
-   .block-agendado{
+.block-agendado{
   background:linear-gradient(
     180deg,
     var(--card),
@@ -373,7 +373,7 @@ input::placeholder{color:#8a96a6}
   <div class="slogan">Mobilidade com excelência</div>
 </div>
 
-  <button class="btn-primary" onclick="enviarWhats()">Solicitar Viagem no grupo</button>
+  <button class="btn-primary" onclick="irParaGrupos()">Solicitar Viagem no grupo</button>
   <button class="btn-secondary" onclick="App.go('destino.html')">⬅ Voltar</button>
 
 </div>
@@ -553,7 +553,7 @@ viagemAgendada.addEventListener("change", () => {
   agendamentoCampos.style.display = viagemAgendada.checked ? "block" : "none";
 });
 
-function enviarWhats(){
+function irParaGrupos(){
    const agora = new Date();
 
 const dataFormatada = agora.toLocaleDateString("pt-BR");
@@ -564,9 +564,10 @@ const horaFormatada = agora.toLocaleTimeString("pt-BR", {
 
    const blocoDataHora = `
 _________________________________
-*_SOLICITAÇÃO DE VIAGEM_*
-📆 *_${dataFormatada}_*
-⏰ *_${horaFormatada}_*
+*_📅DATA E HORA DA SOLICITAÇÃO_*
+
+📆 ${dataFormatada}
+⏰ ${horaFormatada}
 `;
 
 const observacao = observacaoInput.value.trim();
@@ -576,7 +577,7 @@ let blocoObservacao = "";
 if (observacao) {
   blocoObservacao = `
 _________________________________
-*_📝OBSERVAÇÕES_*
+*_📝OBSERVAÇÃO DO PASSAGEIRO_*
 
 _*${observacao}*_`;
 }
@@ -595,24 +596,27 @@ if (viagemAgendada.checked) {
 
   blocoAgendamento = `
 _________________________________
-*_AGENDAMENTO DE VIAGEM_*
+*_📅VIAGEM AGENDADA_*
 
-📆 *_${dataFormatada}_*
-⏰ *_${horaAgendamento.value}_*
+📆 ${dataFormatada}
+⏰ ${horaAgendamento.value}
 `;
 }
 
   const msg =
-`${blocoDataHora}
+`_*RF DRIVER*_
+${blocoDataHora}
 _________________________________
-*_RF DRIVER 🚕_*
+*_Solicitação de Viagem 🚕_*
 _Detalhamento de taxas_
 
 ${detalhesWhats.join("\n")}
 
 _💰 *Total*: R$ ${App.get("total").toFixed(2)}_
+
+${blocoObservacao}
 __________________________________
-*_ALGUÉM DISPONÍVEL PARA ORIGEM E DESTINO ABAIXO???_*
+*_Itinerário da Viagem 🚕_*
 
  *_📌Origem ou Destino_*
 _👉${origem}_
@@ -620,23 +624,18 @@ _👉${origem}_
  *_🏁Destino ou Origem_*
 _👉${destino}_
 _________________________________
-${blocoObservacao}
 ${blocoAgendamento}
 _________________________________
 _ALGUM MOTORISTA DISPONÍVEL?_`;
 
-  window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
+  App.set("mensagemWhats", msg);
+
+  App.go("grupos.html");
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
 
 
 
