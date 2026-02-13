@@ -508,6 +508,22 @@ document.querySelectorAll("select,input,textarea").forEach(el=>{
 calcular();
 
 function enviarWhats(){
+   const agora = new Date();
+
+const dataFormatada = agora.toLocaleDateString("pt-BR");
+const horaFormatada = agora.toLocaleTimeString("pt-BR", {
+  hour: "2-digit",
+  minute: "2-digit"
+});
+
+   const blocoDataHora = `
+_________________________________
+*_📅DATA E HORA DA SOLICITAÇÃO_*
+
+📆 ${dataFormatada}
+⏰ ${horaFormatada}
+`;
+
 const observacao = observacaoInput.value.trim();
 
 let blocoObservacao = "";
@@ -522,14 +538,19 @@ _${observacao}_
 }
 
   const msg =
-`*_📝Informações Gerais_*
+`_*SOLICITAÇÃO DE VIAGEM 🚕*_
+${blocoDataHora}
 
-_${detalhesWhats.join("\n")}_
+*_📝Informações Gerais_*
+
+${detalhesWhats.join("\n")}
 
 _💰 *Total*: R$ ${App.get("total").toFixed(2)}_
+
 ${blocoObservacao}
 __________________________________
-*_Tem Algum 🚖 disponivel?_*
+
+*_Itinerário da Viagem_*
 
  *_Origem ou Destino_*
 _👉${origem}_
@@ -538,9 +559,7 @@ _👉${origem}_
 _👉${destino}_
 
 _________________________________
-_GRUPO RF Driver_
-_CNPJ: 58.615.336/0001-49_
-_Mobilidade com excelência_`;
+_ALGUM MOTORISTA DISPONÍVEL?_`;
 
   window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
 }
@@ -548,6 +567,7 @@ _Mobilidade com excelência_`;
 
 </body>
 </html>
+
 
 
 
