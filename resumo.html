@@ -298,6 +298,21 @@ input::placeholder{color:#8a96a6}
     <input type="number" id="minutosEspera" placeholder="Ex: 10">
   </div>
 
+<div class="block">
+  <label>📝 Observação</label>
+  <textarea id="observacao" placeholder="Ex: Passageiro com bagagem, parada rápida, etc..." style="
+    width:100%;
+    padding:12px;
+    border-radius:14px;
+    border:1px solid #cfd8e3;
+    background:#ffffff;
+    color:#0b1b2b;
+    font-size:.95rem;
+    resize:none;
+    min-height:80px;
+  "></textarea>
+</div>
+
   <div class="block">
     <strong>Detalhamento🗃️</strong>
     <div class="details" id="detalhamento"></div>
@@ -347,6 +362,7 @@ const taxaFeira = document.getElementById("taxaFeira");
 const taxaNoturna = document.getElementById("taxaNoturna");
 const animalSel = document.getElementById("animal");
 const minutosEspera = document.getElementById("minutosEspera");
+const observacaoInput = document.getElementById("observacao");
 const detalheDiv = document.getElementById("detalhamento");
 const totalDiv = document.getElementById("total");
 
@@ -356,6 +372,13 @@ function calcular(){
   let total = valorBase;
   let detalhes = [];
   detalhesWhats = [];
+
+const observacao = observacaoInput.value.trim();
+
+if (observacao) {
+  detalhes.push([`Observação: ${observacao}`, 0]);
+  detalhesWhats.push(`📝 *Observação*: ${observacao}`);
+}
 
   detalhes.push(["Viagem base", valorBase]);
   detalhesWhats.push(`🚖 *Viagem base*: R$ ${valorBase.toFixed(2)}`);
@@ -482,7 +505,7 @@ if (min >= 5) {
   App.set("total", total);
 }
 
-document.querySelectorAll("select,input").forEach(el=>{
+document.querySelectorAll("select,input,textarea").forEach(el=>{
   el.addEventListener("change", () => {
     el.closest(".extra")?.classList.toggle("active", el.checked);
     calcular();
@@ -522,6 +545,7 @@ _Mobilidade com excelência_`;
 
 </body>
 </html>
+
 
 
 
