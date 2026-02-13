@@ -173,7 +173,12 @@ input::placeholder{color:#8a96a6}
 .total{
   font-size:2.4rem;
   font-weight:800;
-  color:var(--gold);
+  color:#ffffff;
+}
+
+.totalBox,
+.totalBox *{
+  color:#ffffff;
 }
 
 /* BOTÕES */
@@ -299,6 +304,21 @@ input::placeholder{color:#8a96a6}
   </div>
 
 <div class="block">
+  <div class="extra">
+    <span>📅 Viagem agendada</span>
+    <input type="checkbox" id="viagemAgendada">
+  </div>
+
+  <div id="agendamentoCampos" style="display:none; margin-top:12px;">
+    <label>Data da viagem</label>
+    <input type="date" id="dataAgendamento">
+
+    <label style="margin-top:10px;">Hora da viagem</label>
+    <input type="time" id="horaAgendamento">
+  </div>
+</div>
+
+<div class="block">
   <label>📝 Observação</label>
   <textarea id="observacao" placeholder="Ex: Passageiro com bagagem, parada rápida, etc..." style="
     width:100%;
@@ -362,6 +382,10 @@ const taxaFeira = document.getElementById("taxaFeira");
 const taxaNoturna = document.getElementById("taxaNoturna");
 const animalSel = document.getElementById("animal");
 const minutosEspera = document.getElementById("minutosEspera");
+const viagemAgendada = document.getElementById("viagemAgendada");
+const agendamentoCampos = document.getElementById("agendamentoCampos");
+const dataAgendamento = document.getElementById("dataAgendamento");
+const horaAgendamento = document.getElementById("horaAgendamento");
 const observacaoInput = document.getElementById("observacao");
 const detalheDiv = document.getElementById("detalhamento");
 const totalDiv = document.getElementById("total");
@@ -507,6 +531,10 @@ document.querySelectorAll("select,input,textarea").forEach(el=>{
 
 calcular();
 
+viagemAgendada.addEventListener("change", () => {
+  agendamentoCampos.style.display = viagemAgendada.checked ? "block" : "none";
+});
+
 function enviarWhats(){
    const agora = new Date();
 
@@ -536,6 +564,27 @@ _________________________________
 _*${observacao}*_`;
 }
 
+let blocoAgendamento = "";
+
+if (viagemAgendada.checked) {
+
+  if (!dataAgendamento.value || !horaAgendamento.value) {
+    alert("Por favor, selecione data e hora do agendamento.");
+    return;
+  }
+
+  const dataFormatada = new Date(dataAgendamento.value + "T00:00")
+    .toLocaleDateString("pt-BR");
+
+  blocoAgendamento = `
+_________________________________
+*_📅VIAGEM AGENDADA_*
+
+📆 ${dataFormatada}
+⏰ ${horaAgendamento.value}
+`;
+}
+
   const msg =
 `_*RF DRIVER*_
 ${blocoDataHora}
@@ -556,7 +605,8 @@ _👉${origem}_
 
  *_🏁Destino ou Origem_*
 _👉${destino}_
-
+_________________________________
+${blocoAgendamento}
 _________________________________
 _ALGUM MOTORISTA DISPONÍVEL?_`;
 
@@ -566,6 +616,7 @@ _ALGUM MOTORISTA DISPONÍVEL?_`;
 
 </body>
 </html>
+
 
 
 
