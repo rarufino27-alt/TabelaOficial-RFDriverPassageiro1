@@ -182,6 +182,28 @@ select{
     </select>
   </div>
 
+  <!-- VIAGEM AGENDADA -->
+<div class="card">
+  <div class="section-title">Agendamento</div>
+
+  <label style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+    <input type="checkbox" id="viagemAgendada" onchange="toggleAgendamento()" style="width:18px; height:18px;">
+    <span>Viagem Agendada</span>
+  </label>
+
+  <div id="areaAgendamento" style="display:none;">
+    <div style="margin-bottom:10px;">
+      <input type="date" id="dataAgendamento"
+        style="width:100%; padding:12px; border-radius:12px; background:#111; color:#fff; border:1px solid #1c1c1c;">
+    </div>
+
+    <div>
+      <input type="time" id="horaAgendamento"
+        style="width:100%; padding:12px; border-radius:12px; background:#111; color:#fff; border:1px solid #1c1c1c;">
+    </div>
+  </div>
+</div>
+
   <!-- TOTAL -->
   <div class="total-box">
     <div class="total" id="total">R$ 0,00</div>
@@ -295,6 +317,13 @@ document.getElementById("total").innerText =
 
 App.set("total", total);
 
+  function toggleAgendamento(){
+  const check = document.getElementById("viagemAgendada");
+  const area = document.getElementById("areaAgendamento");
+
+  area.style.display = check.checked ? "block" : "none";
+}
+
 function solicitar(){
 
   const agora = new Date();
@@ -384,5 +413,6 @@ _Mobilidade com Excelência_`;
 
 </body>
 </html>
+
 
 
