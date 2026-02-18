@@ -203,7 +203,7 @@ button{
 
 <div class="bottom-bar">
   <div class="total" id="totalFinal">R$ 0,00</div>
-  <button onclick="solicitar()">Whatsapp</button>
+  <button onclick="solicitar()">Solicitar RF</button>
 </div>
 
 <script>
@@ -342,20 +342,20 @@ ${observacao}`;
   }
 
   let blocoItinerario = `
-📍 Origem:
-${origem}
+*📍 Origem*
+- ${origem}
 `;
 
   if(parada && parada.trim() !== ""){
     blocoItinerario += `
-🛑 Parada:
-${parada}
+*🛑 Parada*
+- ${parada}
 `;
   }
 
   blocoItinerario += `
-🏁 Destino:
-${destino}
+*🏁 Destino*
+- ${destino}
 `;
 
   const msg =
@@ -386,3 +386,4 @@ atualizarResumo();
 
 </body>
 </html>
+
