@@ -388,16 +388,20 @@ function enviarSolicitacaoGrupo(){
   const observacao = document.getElementById("observacaoInput").value.trim();
 
   let mensagem =
-`🚖 *SOLICITAÇÃO DE CORRIDA – GRUPO RF*
+`🚖 *SOLICITAÇÃO – GRUPO RF*
+
+Alguém Disponível??
 
 📍 Origem: ${origem}
 ${parada ? "🛑 Parada: " + parada + "\n" : ""}🏁 Destino: ${destino}
 
 🚘 Categoria: ${categoria}
+
 💳 Pagamento: ${pagamento}
+
 💰 Valor: R$ ${totalFinal.toFixed(2)}
 `;
-
+___________
   if(observacao){
     mensagem += `
 📝 Observações:
@@ -406,8 +410,8 @@ ${observacao}
   }
 
   mensagem += `
-━━━━━━━━━━━━━━━━━━
-Alguém disponível?
+━━━━━━━━━━━
+
 Estou no aguardo.
 `;
 
@@ -420,5 +424,6 @@ atualizarResumo();
 
 </body>
 </html>
+
 
 
