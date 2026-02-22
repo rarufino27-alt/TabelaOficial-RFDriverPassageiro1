@@ -18,56 +18,53 @@
 }
 
 body{
-  background:#ffffff;
-  height:100vh;
-  overflow:hidden;
+  background:#0f0f0f;
+  color:#ffffff;
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
 /* ================= HEADER ================= */
 
 .top{
-  background:#facc15;
-  padding:25px 20px 150px 20px; /* AUMENTADO */
+  background:#ffffff;
+  padding:25px 20px 110px 20px; /* reduzimos um pouco */
   border-bottom-left-radius:40px;
   border-bottom-right-radius:40px;
   position:relative;
+  z-index:1;
 }
 
 .logo{
   font-weight:900;
   font-size:1.4rem;
   letter-spacing:1px;
-  animation:fadeIn 1s ease forwards;
+  color:#000000; /* NOME PRETO */
 }
 
 .titulo-topo{
   position:absolute;
-  bottom:105px; /* SUBIU */
+  bottom:100px;
   left:20px;
   font-weight:700;
   font-size:1rem;
+  color:#facc15; /* AMARELO */
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(-10px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* ================= ROTA FIXA ================= */
+/* ================= ROTA ================= */
 
 .rota-box{
-  position:absolute;
-  top:115px; /* antes 90px */
-  left:50%;
-  transform:translateX(-50%);
+  position:relative;
   width:90%;
   max-width:420px;
-  background:#fff;
-  border-radius:18px;
-  padding:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,.1);
-  font-size:.85rem;
-  z-index:5;
+  margin:-70px auto 30px auto;
+  background:#1c1c1c;
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 15px 35px rgba(0,0,0,.5);
+  font-size:.9rem;
+  color:#fff;
+  z-index:10;
 }
 
 .rota-item{
@@ -77,20 +74,16 @@ body{
 }
 
 .rota-item span:first-child{
-  color:#777;
+  color:#999;
 }
 
-/* ================= CONTEÚDO ROLÁVEL ================= */
+/* ================= CONTEÚDO ================= */
 
 .content{
-  position:absolute;
-  top:210px;
-  left:50%;
-  transform:translateX(-50%);
   width:90%;
   max-width:420px;
-  bottom:100px;
-  overflow-y:auto;
+  margin:0 auto;
+  padding-bottom:160px; /* espaço real para footer */
 }
 
 /* ================= CATEGORIA ================= */
@@ -98,33 +91,33 @@ body{
 .categoria{
   padding:14px;
   border-radius:14px;
-  border:1px solid #eee;
+  border:1px solid rgba(255,255,255,.08);
   margin-bottom:10px;
   display:flex;
   justify-content:space-between;
   cursor:pointer;
   transition:.25s ease;
+  background:#1c1c1c;
 }
 
 .categoria:hover{
-  background:#fafafa;
+  background:#252525;
 }
 
 .categoria.ativa{
   border-color:#facc15;
-  box-shadow:0 0 10px rgba(250,204,21,.3);
-  transform:scale(1.02);
+  box-shadow:0 0 12px rgba(250,204,21,.35);
 }
 
 .cat-desc{
   font-size:.75rem;
-  color:#777;
+  color:#aaa;
 }
 
 .preco-antigo{
   font-size:.7rem;
   text-decoration:line-through;
-  color:#999;
+  color:#888;
 }
 
 .preco-dinamico{
@@ -135,7 +128,7 @@ body{
 /* ================= PAGAMENTO ================= */
 
 .pagamento-bloco{
-  background:#fff6cc;
+  background:#1c1c1c;
   padding:15px;
   border-radius:16px;
   margin-top:20px;
@@ -150,7 +143,7 @@ body{
 }
 
 .pag-item:hover{
-  background:#fff2a8;
+  background:#252525;
 }
 
 .pag-item.ativo{
@@ -159,43 +152,50 @@ body{
   font-weight:600;
 }
 
-/* ================= BOTTOM BAR ================= */
+/* ================= FOOTER FIXO ================= */
 
-.bottom-bar{
-  position:absolute;
-  bottom:25px;
-  left:20px;
-  right:20px;
+.footer-fixo{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#0f0f0f;
+  padding:15px 20px;
+  padding-bottom:calc(15px + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 25px rgba(0,0,0,.6);
+  z-index:100;
+}
+
+.footer-content{
+  max-width:420px;
+  margin:0 auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
 .valor-total{
-  font-size:1.3rem;
+  font-size:1.4rem;
   font-weight:700;
-  transition:.2s;
+  color:#facc15;
 }
 
-.valor-total.animar{
-  transform:scale(1.1);
-}
-
-button{
+.footer-fixo button{
   padding:12px 28px;
   border:none;
   border-radius:30px;
   background:#facc15;
+  color:#000;
   font-weight:700;
   cursor:pointer;
 }
+  
 </style>
 </head>
 <body>
 
 <div class="top">
-  <div class="logo">PASSAGEIRO RF</div>
-  <div class="titulo-topo">Categoria de viagem</div>
+  <div class="logo">GRUPO RF</div>
 </div>
 
 <div class="rota-box" id="rotaBox"></div>
@@ -211,9 +211,11 @@ button{
 
 </div>
 
-<div class="bottom-bar">
-  <div class="valor-total" id="valorTotal">R$ 0,00</div>
-  <button onclick="solicitar()">Solicitar</button>
+<div class="footer-fixo">
+  <div class="footer-content">
+    <div class="valor-total" id="valorTotal">R$ 0,00</div>
+    <button onclick="solicitar()">Solicitar</button>
+  </div>
 </div>
 
 <script>
@@ -244,7 +246,7 @@ function aplicarNoturno(valorBase){
 }
 
 const categoriasData = [
-  { nome:"Driver", desc:"Mais econômico", mult:1.0 },
+  { nome:"Driver 4 Lugares", desc:"Até 4 Pessoas", mult:1.0 },
   { nome:"Driver 6 Lugares", desc:"Ideal para grupos", mult:1.5 }
 ];
 
@@ -291,7 +293,12 @@ function renderCategorias(){
 }
 
 function renderPagamentos(){
-  const pagamentos = ["Dinheiro","Pix","Cartão"];
+  const pagamentos = [
+  "Dinheiro",
+  "Pix",
+  "Cartão Débito",
+  "Cartão Crédito"
+];
   const box = document.getElementById("pagamentos");
 
   pagamentos.forEach(p=>{
@@ -311,21 +318,35 @@ function renderPagamentos(){
   });
 }
 
+    function arredondarParaCima(valor){
+  return Math.ceil(valor * 100) / 100;
+}
+  
 function atualizarTotal(){
   const cat = categoriasData[categoriaSelecionada];
   let base = valor * cat.mult;
   base = aplicarNoturno(base);
   let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
-  const el = document.getElementById("valorTotal");
-  el.classList.add("animar");
-  setTimeout(()=>el.classList.remove("animar"),200);
+  // === APLICAR TAXA DO CARTÃO ===
+  if(pagamentoSelecionado === "Cartão Crédito"){
+    total = total / 0.95;
+  }
 
+  if(pagamentoSelecionado === "Cartão Débito"){
+    total = total / 0.98;
+  }
+
+  // === ARREDONDAR CENTAVOS PARA CIMA ===
+  total = arredondarParaCima(total);
+
+  const el = document.getElementById("valorTotal");
   el.innerText = "R$ " + total.toFixed(2);
 
-  localStorage.setItem("rf_categoria", cat.nome);
-  localStorage.setItem("rf_pagamento", pagamentoSelecionado);
-  localStorage.setItem("rf_valor_final", total);
+localStorage.setItem("rf_categoria", cat.nome);
+localStorage.setItem("rf_pagamento", pagamentoSelecionado);
+localStorage.setItem("rf_valor_final", total);
+localStorage.setItem("rf_mult", cat.mult);
 }
 
 function solicitar(){
@@ -339,3 +360,4 @@ renderPagamentos();
 
 </body>
 </html>
+
