@@ -384,23 +384,23 @@ function atualizarResumo(){
   const observacao = document.getElementById("observacaoInput").value.trim();
 
   let mensagem =
-`*SOLICITAÇÃO 🚖 – GRUPO RF*
+`*SOLICITAÇÃO DE VIAGEM*
 
-Alguém Disponível??
-
- *Origem:* ${origem}
-
-${parada ? " Parada: " + parada + "\n" : ""} 
-
-*Destino:* ${destino}
+🙋🏽‍♂️🙋🏽‍♀️Alguém Disponível??
+ - *Origem:* 
+ ${origem}
+- ${parada ? " Parada: " + parada + "\n" : ""} 
+- *Destino:* 
+${destino}
 ____________
 
-*🚘 Categoria* 
+- *🚘 Categoria* 
 ${categoria}
 
-*💳 Pagamento:* ${pagamento}
+- *💳 Pagamento* 
+${pagamento}
 
-*💰 Valor:* R$ ${totalFinal.toFixed(2)}
+*Valor Total:* R$ ${totalFinal.toFixed(2)}
 `;
 
   if(observacao){
@@ -425,6 +425,7 @@ atualizarResumo();
 
 </body>
 </html>
+
 
 
 
