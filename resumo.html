@@ -388,18 +388,18 @@ function atualizarResumo(){
 
 Alguém Disponível??
  
- ${origem}
+ *${origem}*
  
- ${parada ? + parada + "\n" : ""} 
+*${parada ? + parada + "\n" : ""}* 
 
-${destino}
+*${destino}*
 ____________
 
-- *🚘 Categoria* 
-${categoria}
+- *Categoria* 
+*${categoria}🚘*
 
-- *💳 Pagamento* 
-${pagamento}
+- *Pagamento* 
+*${pagamento}*
 
 *Valor Total:* R$ ${totalFinal.toFixed(2)}
 `;
@@ -426,6 +426,7 @@ atualizarResumo();
 
 </body>
 </html>
+
 
 
 
