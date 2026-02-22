@@ -17,14 +17,15 @@
 }
 
 body{
-  background:#fff;
-  height:100vh;
-  overflow:hidden;
+  background:#0f0f0f;
+  color:#fff;
+  min-height:100vh;
 }
 
+/* HEADER */
 .top{
-  background:#facc15;
-  padding:25px 20px 100px 20px;
+  background:#ffffff;
+  padding:25px 20px 55px 20px;
   border-bottom-left-radius:40px;
   border-bottom-right-radius:40px;
 }
@@ -32,43 +33,37 @@ body{
 .logo{
   font-weight:900;
   font-size:1.4rem;
+  color:#000;
 }
 
 .titulo{
-  font-weight:700;
   margin-top:5px;
+  font-weight:700;
+  color:#facc15;
 }
 
+/* CONTEÚDO */
 .content{
-  position:absolute;
-  top:130px;
-  left:50%;
-  transform:translateX(-50%);
   width:90%;
   max-width:420px;
-  bottom:110px;
-  overflow-y:auto;
+  margin:0 auto 120px auto; /* espaço para o footer */
 }
 
 .bloco{
-  background:#fff;
-  border-radius:18px;
+  background:#1c1c1c;
+  border-radius:20px;
   padding:18px;
   margin-bottom:18px;
-  box-shadow:0 6px 15px rgba(0,0,0,.06);
-  animation:fadeUp .4s ease;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
+  box-shadow:0 12px 30px rgba(0,0,0,.5);
 }
 
 .bloco h3{
   margin-bottom:12px;
   font-size:.95rem;
+  color:#facc15;
 }
 
+/* SWITCH */
 .switch{
   display:flex;
   justify-content:space-between;
@@ -79,7 +74,7 @@ body{
 .toggle{
   width:45px;
   height:24px;
-  background:#ddd;
+  background:#333;
   border-radius:20px;
   position:relative;
   cursor:pointer;
@@ -106,13 +101,16 @@ body{
   left:24px;
 }
 
+/* FORM */
 select, textarea{
   width:100%;
   padding:10px;
   border-radius:12px;
-  border:1px solid #ddd;
+  border:1px solid #333;
   margin-top:8px;
   resize:none;
+  background:#111;
+  color:#fff;
 }
 
 textarea{
@@ -128,29 +126,48 @@ textarea{
 }
 
 .linha span:first-child{
-  color:#777;
+  color:#aaa;
 }
 
 .total{
-  font-size:1.2rem;
+  font-size:1.1rem;
   font-weight:700;
+  color:#facc15;
 }
 
-.bottom-bar{
-  position:absolute;
-  bottom:25px;
-  left:20px;
-  right:20px;
+/* ================= FOOTER FIXO ================= */
+
+.footer-fixo{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#0f0f0f; /* mesma cor do fundo */
+  padding:15px 20px;
+  box-shadow:0 -8px 25px rgba(0,0,0,.6);
+  z-index:100;
+}
+
+.footer-content{
+  max-width:420px;
+  margin:0 auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-button{
+.valor-total{
+  font-size:1.4rem;
+  font-weight:700;
+  color:#facc15;
+}
+
+.footer-fixo button{
   padding:12px 28px;
   border:none;
   border-radius:30px;
   background:#facc15;
+  color:#000;
   font-weight:700;
   cursor:pointer;
 }
@@ -159,7 +176,7 @@ button{
 <body>
 
 <div class="top">
-  <div class="logo">PASSAGEIRO RF</div>
+  <div class="logo">GRUPO RF DRIVER</div>
   <div class="titulo">Resumo</div>
 </div>
 
@@ -201,9 +218,11 @@ button{
 
 </div>
 
-<div class="bottom-bar">
-  <div class="total" id="totalFinal">R$ 0,00</div>
-  <button onclick="solicitar()">Solicitar Driver</button>
+<div class="footer-fixo">
+  <div class="footer-content">
+    <div class="valor-total" id="totalFinal">R$ 0,00</div>
+    <button onclick="solicitar()">Whatsapp</button>
+  </div>
 </div>
 
 <script>
@@ -239,13 +258,24 @@ function aplicarNoturno(valorBase){
   return valorBase;
 }
 
+function arredondarParaCima(valor){
+  return Math.ceil(valor * 100) / 100;
+}
+
+function arredondarParaCima(valor){
+  return Math.ceil(valor * 100) / 100;
+}
+
 function atualizarResumo(){
 
   const categoria = localStorage.getItem("rf_categoria") || "Driver";
+  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
+  const multiplicador = parseFloat(localStorage.getItem("rf_mult")) || 1;
 
-  let base = valor;
+  let base = valor * multiplicador;
   base = aplicarNoturno(base);
-  let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
+
+  let subtotal = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
   let detalhamento = "";
 
@@ -258,13 +288,15 @@ function atualizarResumo(){
 
   detalhamento += `
     <div class="linha">
-      <span>Valor base</span>
+      <span>Valor base ajustado</span>
       <span>R$ ${base.toFixed(2)}</span>
     </div>
   `;
 
+  // ===== EXTRAS =====
+
   if(extras.mercado){
-    total += Taxas.feira;
+    subtotal += Taxas.feira;
     detalhamento += `
       <div class="linha">
         <span>Saída de mercado</span>
@@ -274,7 +306,7 @@ function atualizarResumo(){
   }
 
   if(extras.praia){
-    total += Taxas.voltaPraia;
+    subtotal += Taxas.voltaPraia;
     detalhamento += `
       <div class="linha">
         <span>Saída de praia</span>
@@ -285,7 +317,7 @@ function atualizarResumo(){
 
   if(extras.animal !== "nao"){
     const valorAnimal = Taxas.animal[extras.animal];
-    total += valorAnimal;
+    subtotal += valorAnimal;
     detalhamento += `
       <div class="linha">
         <span>Animal (${extras.animal})</span>
@@ -294,97 +326,98 @@ function atualizarResumo(){
     `;
   }
 
+  subtotal = arredondarParaCima(subtotal);
+
+  // ===== TAXA CARTÃO =====
+
+  let taxaCartao = 0;
+  let totalGeral = subtotal;
+
+  if(pagamento === "Cartão Crédito"){
+    totalGeral = arredondarParaCima(subtotal / 0.95);
+    taxaCartao = arredondarParaCima(totalGeral - subtotal);
+  }
+
+  if(pagamento === "Cartão Débito"){
+    totalGeral = arredondarParaCima(subtotal / 0.98);
+    taxaCartao = arredondarParaCima(totalGeral - subtotal);
+  }
+
+  // ===== MOSTRAR SUBTOTAL =====
+
+  detalhamento += `
+    <div class="linha">
+      <span>Subtotal</span>
+      <span>R$ ${subtotal.toFixed(2)}</span>
+    </div>
+  `;
+
+  // ===== MOSTRAR TAXA (SE HOUVER) =====
+
+  if(taxaCartao > 0){
+    detalhamento += `
+      <div class="linha">
+        <span>Taxa ${pagamento}</span>
+        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  // ===== TOTAL GERAL =====
+
   detalhamento += `
     <div class="linha total">
-      <span>Total</span>
-      <span>R$ ${total.toFixed(2)}</span>
+      <span>Total Geral</span>
+      <span>R$ ${totalGeral.toFixed(2)}</span>
     </div>
   `;
 
   document.getElementById("detalhamento").innerHTML = detalhamento;
-  document.getElementById("totalFinal").innerText = "R$ " + total.toFixed(2);
+  document.getElementById("totalFinal").innerText = "R$ " + totalGeral.toFixed(2);
 
-  localStorage.setItem("rf_total_final", total);
+  localStorage.setItem("rf_total_final", totalGeral);
 }
 
-function solicitar(){
+function enviarSolicitacaoGrupo(){
 
   atualizarResumo();
 
-  const agora = new Date();
-  const dataFormatada = agora.toLocaleDateString("pt-BR");
-  const horaFormatada = agora.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  const categoria = localStorage.getItem("rf_categoria") || "Driver";
+  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
+  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
 
   const observacao = document.getElementById("observacaoInput").value.trim();
 
-  const detalhamentoDiv = document.getElementById("detalhamento");
+  let mensagem =
+`🚖 *SOLICITAÇÃO DE CORRIDA – GRUPO RF*
 
-  let linhas = [];
-  detalhamentoDiv.querySelectorAll(".linha").forEach(linha => {
-      const spans = linha.querySelectorAll("span");
-      if(spans.length === 2){
-          linhas.push(`${spans[0].innerText}: ${spans[1].innerText}`);
-      }
-  });
+📍 Origem: ${origem}
+${parada ? "🛑 Parada: " + parada + "\n" : ""}🏁 Destino: ${destino}
 
-  const detalhamentoTexto = linhas.join("\n");
-  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
+🚘 Categoria: ${categoria}
+💳 Pagamento: ${pagamento}
+💰 Valor: R$ ${totalFinal.toFixed(2)}
+`;
 
-  let blocoObservacao = "";
   if(observacao){
-    blocoObservacao = `
-_____________________________
-*Observações*
-${observacao}`;
-  }
-
-  let blocoItinerario = `
-*📍 Origem*
-- ${origem}
-`;
-
-  if(parada && parada.trim() !== ""){
-    blocoItinerario += `
-*🛑 Parada*
-- ${parada}
+    mensagem += `
+📝 Observações:
+${observacao}
 `;
   }
 
-  blocoItinerario += `
-*🏁 Destino*
-- ${destino}
+  mensagem += `
+━━━━━━━━━━━━━━━━━━
+Alguém disponível?
+Estou no aguardo.
 `;
 
-  const msg =
-`*Solicitação de Viagem RF*
-${dataFormatada}
-${horaFormatada}
-${blocoObservacao}
-_____________________________
-*Detalhamento da viagem*
-
-${detalhamentoTexto}
-_____________________________
-
-*Alguem Disponível???*
-${blocoItinerario}
-_____________________________
-💰 *Total: R$ ${totalFinal.toFixed(2)}*
-
-Aguardo o retorno. Alguem disponível?`;
-
-  const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+  const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
   window.open(url, "_blank");
 }
-
 atualizarResumo();
 
 </script>
 
 </body>
 </html>
-
-
