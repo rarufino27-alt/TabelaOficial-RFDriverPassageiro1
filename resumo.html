@@ -261,10 +261,6 @@ function arredondarParaCima(valor){
   return Math.ceil(valor * 100) / 100;
 }
 
-function arredondarParaCima(valor){
-  return Math.ceil(valor * 100) / 100;
-}
-
 function atualizarResumo(){
 
   const categoria = localStorage.getItem("rf_categoria") || "Driver";
@@ -377,7 +373,7 @@ function atualizarResumo(){
   localStorage.setItem("rf_total_final", totalGeral);
 }
 
-function enviarSolicitacaoGrupo(){
+ enviarSolicitacaoGrupo(){
 
   atualizarResumo();
 
@@ -425,6 +421,7 @@ atualizarResumo();
 
 </body>
 </html>
+
 
 
 
