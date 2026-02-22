@@ -383,16 +383,29 @@ function atualizarResumo(){
 
   const observacao = document.getElementById("observacaoInput").value.trim();
 
+     let blocoItinerario = `
+📍 Origem:
+${origem}
+`;
+
+  if(parada && parada.trim() !== ""){
+    blocoItinerario += `
+🛑 Parada:
+${parada}
+`;
+  }
+
+  blocoItinerario += `
+🏁 Destino:
+${destino}
+`;
+   
   let mensagem =
 `*SOLICITAÇÃO DE VIAGEM*
 
 Alguém Disponível??
  
- *${origem}*
- 
-${parada ? + parada + "\n" : ""}
-
-*${destino}*
+${blocoItinerario}
 ____________
 
 - *Categoria* 
@@ -426,6 +439,7 @@ atualizarResumo();
 
 </body>
 </html>
+
 
 
 
